@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 from sklearn import svm
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.multiclass import OneVsOneClassifier
+from sklearn.multiclass import OutputCodeClassifier
 from sklearn import metrics
 
 
@@ -13,10 +16,6 @@ def main():
     training_data = data.sample(100)
     test_data = data.drop(training_data.index)
 
-    print(test_data)
-
-
-
     # Divide dados de treinamento em atributos e classes
     training_atributes = training_data[['sepal.length', 'sepal.width', 'pedal.length', 'pedal.width']].values
     training_classes = training_data[['species']].transpose().values
@@ -27,26 +26,20 @@ def main():
     test_classes = test_data[['species']].transpose().values
     test_classes = np.array(test_classes)[0]
 
-    # Cria uma instancia de classificador svc (utiliza one_against_one)
-    ovo_svc_classifier = svm.SVC(decision_function_shape='ovo')
+    
+    # Para o svc faz a abordagem one-vs-rest, one-vs-one e Error-Correcting Output-Codes
+    ovr_clf_svc = OneVsRestClassifier(svm.SVC()).fit(training_atributes, training_classes)
+    ovr_svc_prediction = ovr_clf_svc.predict(test_atributes)
+    print("one_against_rest ",metrics.accuracy_score(test_classes,ovr_svc_prediction))
 
-    # Treina o modelo com os dados de treinamento
-    ovo_svc_classifier.fit(training_atributes,training_classes)
+    ovo_clf_svc = OneVsOneClassifier(svm.SVC()).fit(training_atributes, training_classes)
+    ovo_svc_prediction = ovo_clf_svc.predict(test_atributes)
+    print("one_against_one ",metrics.accuracy_score(test_classes,ovo_svc_prediction))
 
-    # Prediz os dados de teste
-    prediction = ovo_svc_classifier.predict(test_atributes)
-    print("one_against_one ",metrics.accuracy_score(test_classes,prediction))
+    eoc_clf_svc = OutputCodeClassifier(svm.SVC(), code_size = 1.0).fit(training_atributes, training_classes)
+    eoc_svc_prediction = eoc_clf_svc.predict(test_atributes)
+    print("error correcting code ",metrics.accuracy_score(test_classes,eoc_svc_prediction))
 
-
-    # Cria uma instancia de classificador svc (utiliza one_against_rest)
-    ovr_svc_classifier = svm.SVC(decision_function_shape='ovr')
-
-    # Treina o modelo com os dados de treinamento
-    ovr_svc_classifier.fit(training_atributes,training_classes)
-
-    # Prediz os dados de teste
-    prediction = ovr_svc_classifier.predict(test_atributes)
-    print("one_against_rest ",metrics.accuracy_score(test_classes,prediction))
 
 if __name__ == "__main__":
     main()
