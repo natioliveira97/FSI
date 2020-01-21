@@ -31,8 +31,19 @@
     pip install numpy
     ```
 
+* Base Mnist
+    ```
+    pip install python-mnist
+    ```
+
+    Além disso, deve-se descomprimir a pasta mnist_base
+
+
 ### Como executar
 
     ```
     python3.5 iris_base.py
+    python3.5 car_base.py
+    python3.5 nmist_base.py
     ```
+    
