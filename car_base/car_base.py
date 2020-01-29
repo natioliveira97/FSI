@@ -32,8 +32,7 @@ def plot_confusion_matrix(y_true, y_pred, classes, title):
     plt.xlabel('Predicted label')
     plt.show()
 
-    plot_confusion_matrix(test_classes, eoc_per_prediction, classes=class_names,title='Confusion matrix for Perceptron')
-
+   
 def training(clf,filename):
     # Carrega dataset
     data = pd.read_csv("car.data") 
@@ -66,7 +65,7 @@ def test(filename):
     test_labels = np.array(test_labels)[0]
 
     # Faz as predições
-    clf = pickle.load(open("eoc_clf_svc.sav", 'rb'))
+    clf = pickle.load(open((filename+".sav"), 'rb'))
     t0 = time.time()
     prediction = clf.predict(test_atributes)
     t1 = time.time()
@@ -95,7 +94,7 @@ def menu(mult_clf_mode, bin_clf_mode):
         mult_clf = OneVsOneClassifier(bin_clf, n_jobs = -1)
         filename = "ovo_"+filename
     elif(mult_clf_mode == "--eoc"):
-        OutputCodeClassifier(bin_clf,code_size =((2 ** (n_classes-1) -1)/n_classes), n_jobs=-1)
+        mult_clf = OutputCodeClassifier(bin_clf,code_size =((2 ** (n_classes-1) -1)/n_classes), n_jobs=-1)
         filename = "eoc_"+filename
     else:
         print("Escolha o primeiro argumento como --ovr ou --ovo ou --eoc")
