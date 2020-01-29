@@ -12,10 +12,10 @@ Esse código foi feito usando python v3.5 e precisa de três argumentos de entra
 
 * 2: O segundo arguemnto define qual classificador se deseja usar: One-vs-One, One-vs-Rest ou Erro Output Code (--ovo --ovr --eoc)
 
-* 3: O terceiro argumento define qual classificador binário se deseja usar: SVC ou Multilayer Perceptron (--svc --per)
+* 3: O terceiro argumento define qual classificador binário se deseja usar: SVC ou Multilayer Perceptron (--svc --mlp)
 
 Exemplo de comando:
 
 ```
-python mnist_base.py --train --ovo --per
+python mnist_base.py --train --ovo --svc
 ```
