@@ -2,6 +2,18 @@
 
 ## Classificação multiclasse
 
+Para esse projeto fizemos experimentos usando 5 bases.
+
+Bases multiclasse:
+* Cars
+* Mnist
+* Fruits 360
+
+Bases multirrótulo
+* Toxic Comments
+* Scenes
+
+
 ### Dependências
 
 * Python 3.5
@@ -19,6 +31,7 @@
 * Pandas
     ```
     sudo pip install pandas
+    pip install pandas-ml
     ```
 
 * Scikit Learn
@@ -31,19 +44,21 @@
     pip install numpy
     ```
 
+* MatplotLib
+    ´´´
+    pip install matplotlib
+    ´´´
+* Seaborn
+    ```
+    pip install seaborn
+    ```
+
+* OpenCV
+    ```
+    pip install opencv-contrib-python
+    ```
+
 * Base Mnist
     ```
     pip install python-mnist
     ```
-
-    Além disso, deve-se descomprimir a pasta mnist_base
-
-
-### Como executar
-
-    ```
-    python3.5 iris_base.py
-    python3.5 car_base.py
-    python3.5 nmist_base.py
-    ```
-    
