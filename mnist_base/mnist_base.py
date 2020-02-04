@@ -86,8 +86,11 @@ def training(clf, filename):
 def test(filename):
     test_images, test_labels = load_test()
 
+    t0 = time.time()
     clf = pickle.load(open((filename+".sav"), 'rb'))
     prediction = clf.predict(test_images)
+    t1 = time.time()
+    print("O teste demorou", t1-t0, " segundos")
     plot_confusion_matrix(test_labels, prediction, classes=class_names,title='Confusion matrix ')
 
 # Menu
